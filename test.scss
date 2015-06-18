@@ -1,0 +1,18 @@
+/*
+	Test Component + Foundation variable overrides
+*/
+
+/*
+	Import Foundation scss, as this is what we do in development
+*/
+@import "bower_components/foundation/scss/foundation";
+
+/*
+	Test bower.json + wiredep (remove this line, run grunt wiredep, look here)
+*/
+// bower:scss
+// endbower
+
+/*
+	Test Foundation skinning component (@mixins)
+*/

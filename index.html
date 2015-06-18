@@ -1,0 +1,240 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<base href="/">
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width">
+        <!--<link rel="stylesheet" href="dist/nMessages.css">-->
+        <link rel="stylesheet" href="test.css">
+	</head>
+	<body ng-app="demoApp" ng-controller="demoCtrl as demo">
+
+        <demo-directive>
+    
+            <div class="row example-area">
+
+                <div id="host" ng-style="hostStyle">
+                    Host Element
+                </div>
+                <div id="target" ng-style="targetStyle">
+                    Target Element
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="small-12 columns rule-builder">
+                    <select ng-model="horPos" ng-options="horPosition for horPosition in horPositions"></select>
+                    -
+                    <select ng-model="verPos" ng-options="verPosition for verPosition in verPositions"></select>
+                    |
+                    <select ng-model="horRule" ng-options="horizontalRule for horizontalRule in horRules"></select>
+                    -
+                    <select ng-model="verRule" ng-options="verticalRule for verticalRule in verRules"></select>
+                </div>
+
+                <div class="small-12 columns text-center">
+                    <label>
+                        Append To Body?
+                        <input type="checkbox" ng-model="appendToBody"/>
+                    </label>
+                </div>
+
+                <div class="small-12 columns text-center">
+                    Your position rule: {{positionRule}}
+                </div>
+                <div class="small-12 columns text-center">
+                    Arguments: nPositionizer.positionElements(hostEl, targetEl, {{positionRule}}, {{appendToBody}})
+                </div>
+            </div>
+            
+        </demo-directive>
+
+        <hr/>
+
+        <div class="row">
+            <div class="small-12 columns text-center">
+                <h1>nPositionizer</h1>
+                <p>Angular Module to get DOM Node coordinates (Usefull for positioning stuff absolute/fixed relative to another element)</p>
+
+                <table style="margin-left: auto; margin-right: auto;">
+                    <thead>
+                        <tr>
+                            <td>Method Name</td>
+                            <td>Arguments</td>
+                            <td>Description</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                position(el)
+                            </td>
+                            <td>
+                                @param {DOMElement}
+                            </td>
+                            <td>
+                                Returns a read-only equivalent of jQuery's position function
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                offset(el)
+                            </td>
+                            <td>
+                                @param {DOMElement}
+                            </td>
+                            <td>
+                                Returns a read-only equivalent of jQuery's offset function
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                positionElements(hostEl, targetEl, positionStr, appendToBody, forceLayout)
+                            </td>
+                            <td>
+                                @param {DOMElement} <br/>
+                                @param {DOMElement} <br/>
+                                @param {String} <br/>
+                                @param {Boolean} <br/>
+                                @param {Boolean}
+                            </td>
+                            <td>
+                                Returns an object with coordinates for the targetEl in relation to the hostEl
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>Using the positionElements method:</h2>
+                <p>A dash seperated string determines where to position the element, the syntax is:</p>
+                <p>[horizontal-position]-[vertical-position]|[horizontal-rule]-[vertical-rule]</p>
+                <p>For horizontal the following positions are available: left, center, right</p>
+                <p>For vertical the following positions are available: top, center, bottom</p>
+                <p>For the rules, you can defined either outside or inside</p>
+            </div>
+        </div>
+        
+		<!-- bower:js -->
+		<script src="bower_components/modernizr/modernizr.js"></script>
+		<script src="bower_components/jquery/dist/jquery.js"></script>
+		<script src="bower_components/angular/angular.js"></script>
+		<script src="bower_components/angular-mocks/angular-mocks.js"></script>
+		<script src="bower_components/angular-scenario/angular-scenario.js"></script>
+		<script src="bower_components/fastclick/lib/fastclick.js"></script>
+		<script src="bower_components/jquery.cookie/jquery.cookie.js"></script>
+		<script src="bower_components/jquery-placeholder/jquery.placeholder.js"></script>
+		<script src="bower_components/foundation/js/foundation.js"></script>
+		<!-- endbower -->
+
+		<!-- Module Specific scripts -->
+        <!--<script src="src/nPositionizer.module.js"></script>-->
+        <!--<script src="src/nPositionizer.factory.js"></script>-->
+
+		<!-- Test Dist -->
+        <script src="dist/nPositionizer.js"></script>
+
+		<!-- Demo functionality -->
+        <style>
+            demo-directive {
+                display: flex;
+                align-items: center;
+                flex-flow: column;
+                width: 100vw;
+            }
+            #host, #target {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+            }
+            #host {
+                box-shadow: inset 0 0 1px red;
+            }
+            #target {
+                box-shadow: inset 0 0 1px green;
+            }
+            .example-area {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 100px;
+            }
+            .rule-builder {
+                text-align: center;
+            }
+            .rule-builder select {
+                display: inline-block;
+                width: 200px;
+            }
+
+        </style>
+		<script>
+			angular.module('demoApp', ['nPositionizer']);
+
+			angular.module('demoApp').controller('demoCtrl', function($scope, nPositionizer) {
+				var vm = this;
+			});
+
+            angular.module('demoApp').directive('demoDirective', function(nPositionizer) {
+
+                return {
+                    restrict: 'EA',
+                    link: link
+                };
+
+                function link(scope, element, attrs) {
+
+                    scope.verPositions = ['top', 'center', 'bottom'];
+                    scope.verPos = scope.verPositions[0];
+
+                    scope.horPositions = ['left', 'center', 'right'];
+                    scope.horPos = scope.horPositions[0];
+
+                    scope.verRules = ['inside', 'outside'];
+                    scope.verRule = scope.verRules[0];
+
+                    scope.horRules = ['inside', 'outside'];
+                    scope.horRule = scope.horRules[0];
+
+                    scope.appendToBody = false;
+
+                    scope.hostStyle = {
+                        'width': '300px',
+                        'height': '300px'
+                    };
+                    scope.targetStyle = {
+                        'position': 'absolute',
+                        'width': '100px',
+                        'height': '100px'
+                    };
+
+                    var hostEl = angular.element('#host');
+                    var targetEl = angular.element('#target');
+
+                    scope.$watchGroup(['horPos', 'verPos', 'horRule', 'verRule'], function(newValues, oldValues) {
+                        _buildPositionRule();
+                    });
+
+                    function _buildPositionRule() {
+
+                        scope.positionRule = scope.horPos + '-' + scope.verPos + '|' + scope.horRule + '-' + scope.verRule;
+
+                        var newPos = nPositionizer.positionElements(hostEl, targetEl, scope.positionRule, scope.appendToBody, false);
+
+                        targetEl.css({
+                            'left': newPos.left + 'px',
+                            'top': newPos.top + 'px'
+                        });
+
+                    }
+
+                }
+
+            })
+		</script>
+	</body>
+</html>

@@ -1,0 +1,25 @@
+{
+	"name": "nPositionizer",
+	"version": "1.0.0",
+	"description": "Angular Module to get DOM Node coordinates (Usefull for positioning stuff absolute/fixed relative to another element)",
+	"homepage": "",
+	"author": "Dennis Haulund Nielsen",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/nodes-galactic/nPositionizer"
+	},
+	"main": [
+		"dist/nPositionizer.js"
+	],
+	"ignore": [
+		"demo"
+	],
+	"dependencies": {
+		"angular": "*"
+	},
+	"devDependencies": {
+		"angular-mocks": "*",
+		"angular-scenario": "*",
+		"foundation": "*"
+	}
+}
