@@ -1,4 +1,5 @@
-# ⛔️ [DEPRECATED] nPositionizer
+# nPositionizer
+_Not maintained by Nodes anymore_
 
 Angular Module to get DOM Node coordinates (Usefull for positioning stuff absolute/fixed relative to another element)
 
